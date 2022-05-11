@@ -2,22 +2,19 @@ import Foundation
 
 func lengthOfLongestSubstring(_ s: String) -> Int {
     var chars: [Character: Int] = [:]
-    var left = 0
-    var right = 0
+    var leftIndex = 0
     var res = 0
     
-    while right < s.count {
-        let r = s[s.index(s.startIndex, offsetBy: right)]
+    for (rightIndex, r) in s.enumerated() {
         chars[r, default: 0] += 1
         
         while chars[r, default: 0] > 1 {
-            let l = s[s.index(s.startIndex, offsetBy: left)]
+            let l = s[s.index(s.startIndex, offsetBy: leftIndex)]
             chars[l, default: 0] -= 1
-            left += 1
+            leftIndex += 1
         }
         
-        res = max(res, right - left + 1)
-        right += 1
+        res = max(res, rightIndex - leftIndex + 1)
     }
     
     return res
